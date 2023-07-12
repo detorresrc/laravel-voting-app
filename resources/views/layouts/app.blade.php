@@ -48,7 +48,7 @@
 
         <main class="container mx-auto flex max-w-custom">
             <div class="w-70 mr-5">
-                Add idea text form here.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium animi eos nihil quos suscipit? Ad cupiditate odit quaerat repellendus suscipit! Amet, blanditiis delectus dolores error eveniet, ex fuga hic iure minus necessitatibus obcaecati odit omnis optio placeat quaerat quas quidem reiciendis repellat reprehenderit saepe sint sit unde ut veniam voluptas!
             </div>
             <div class="w-175">
                 <nav class="flex item-center justify-between text-xs">
