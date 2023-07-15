@@ -47,14 +47,29 @@
     </div> <!-- end idea-container -->
 
     <div class="buttons-container flex items-center justify-between mt-6">
-        <div class="flex items-center space-x-4 ml-6">
+        <div
+            x-data="{ isOpen: false }"
+            class="flex items-center space-x-4 ml-6">
             <div class="relative">
-                <button type="button"
-                        class="flex items-center justify-center h-11 w-36 bg-blue text-white text-sm font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3">
+                <button
+                    @click="isOpen = !isOpen"
+                    type="button"
+                    class="flex items-center justify-center h-11 w-36 bg-blue text-white text-sm font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3">
                     Reply
                 </button>
 
-                <div class="absolute z-10 w-104 text-left font-semibold text-sm bg-white shadow-dialog rounded-xl mt-2">
+                <div
+                    x-cloak
+                    x-show="isOpen"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 scale-90"
+                    x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave-start="opacity-100 scale-100"
+                    x-transition:leave-end="opacity-0 scale-90"
+                    @click.away="isOpen = false"
+                    @keydown.escape.window="isOpen = false"
+                    class="absolute z-10 w-104 text-left font-semibold text-sm bg-white shadow-dialog rounded-xl mt-2">
                     <form action="#" class="space-y-4 px-4 py-6">
                         <div>
                             <textarea name="post_comment" id="post_comment" cols="30" rows="4"
@@ -80,8 +95,10 @@
                     </form>
                 </div>
             </div>
-            <div class="relative">
-                <button type="button"
+            <div x-data="{ isOpen: false }" class="relative">
+                <button
+                    @click="isOpen = !isOpen"
+                    type="button"
                         class="flex items-center justify-center w-36 h-11 text-sm bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in ">
                     <span>Set Status</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -89,7 +106,18 @@
                     </svg>
                 </button>
 
-                <div class="absolute z-20 w-76 text-left font-semibold text-sm bg-white shadow-dialog rounded-xl mt-2">
+                <div
+                    x-cloak
+                    x-show="isOpen"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 scale-90"
+                    x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave-start="opacity-100 scale-100"
+                    x-transition:leave-end="opacity-0 scale-90"
+                    @click.away="isOpen = false"
+                    @keydown.escape.window="isOpen = false"
+                    class="absolute z-20 w-76 text-left font-semibold text-sm bg-white shadow-dialog rounded-xl mt-2">
                     <form action="#" class="space-y-4 px-4 py-6">
                         <div class="space-y-2">
                             <div>
@@ -173,7 +201,7 @@
                 </a>
             </div>
             <div class="mx-4 py-5 w-full flex-1">
-                <div class="text-gray-600 mt-3 line-clamp-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, iste similique. Aperiam dolor libero recusandae. Alias architecto corporis doloremque eum excepturi itaque laboriosam nesciunt perspiciatis praesentium ratione! Consequatur eius minus neque? Accusamus asperiores aut autem consequatur culpa cupiditate deleniti dignissimos dolore, doloremque dolores earum enim error ex excepturi fugiat fugit laboriosam, maiores molestias mollitia nam odit perferendis possimus provident quod ratione similique sint soluta, suscipit temporibus totam vel voluptatem voluptatibus voluptatum? Animi architecto, asperiores autem dolor ea enim, esse explicabo incidunt inventore laborum magnam maxime minima modi mollitia nesciunt obcaecati omnis placeat quaerat quas quos repellat sapiente similique, veritatis voluptate?</div>
+                <div class="text-gray-600 mt-3 line-clamp-3">Lorem ipsum dolor sit amet, consaectetur adipisicing elit. Error, iste similique. Aperiam dolor libero recusandae. Alias architecto corporis doloremque eum excepturi itaque laboriosam nesciunt perspiciatis praesentium ratione! Consequatur eius minus neque? Accusamus asperiores aut autem consequatur culpa cupiditate deleniti dignissimos dolore, doloremque dolores earum enim error ex excepturi fugiat fugit laboriosam, maiores molestias mollitia nam odit perferendis possimus provident quod ratione similique sint soluta, suscipit temporibus totam vel voluptatem voluptatibus voluptatum? Animi architecto, asperiores autem dolor ea enim, esse explicabo incidunt inventore laborum magnam maxime minima modi mollitia nesciunt obcaecati omnis placeat quaerat quas quos repellat sapiente similique, veritatis voluptate?</div>
                 <div class="flex items-center justify-between mt-6">
                     <div class="flex items-center text-xs text-gray-400 font-semibold space-x-2">
                         <div class="font-bold text-gray-900">detorresrc</div>
