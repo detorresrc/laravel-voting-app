@@ -33,10 +33,12 @@ export default {
                 'gray-background': '#f7f8fc',
                 'blue': '#328af1',
                 'blue-hover': '#2879bd',
-                'yellow': '#ffc73c',
-                'red': '#ec454f',
-                'green': '#1aab8b',
-                'purple': '#8b60ed'
+                'yellow' : '#ffc73c',
+                'red' : '#ec454f',
+                'red-100' : '#fee2e2',
+                'green' : '#1aab8b',
+                'green-50': '#f0fdf4',
+                'purple' : '#8b60ed',
             },
             spacing: {
                 22: '5.5rem',
