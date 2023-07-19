@@ -8,7 +8,6 @@ use App\Models\Idea;
 use App\Models\Status;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -63,11 +62,9 @@ class CreateIdeaTest extends TestCase
         $text = "-".time();
 
         $user = User::factory()->create();
+
         $category1 = Category::factory()->create(['name'=>'Category 1'.$text]);
-        $category2 = Category::factory()->create(['name'=>'Category 2']);
-        $statusOpen = Status::factory()->create(['name'=>'Open', 'classes'=>'bg-gray-200']);
-
-
+        Status::factory()->create(['name'=>'Open', 'classes'=>'bg-gray-200']);
 
         Livewire::actingAs($user)
             ->test(CreateIdea::class)
