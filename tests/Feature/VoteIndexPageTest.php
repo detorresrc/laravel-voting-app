@@ -75,6 +75,7 @@ class VoteIndexPageTest extends TestCase
     public function votes_count_shows_correctly_on_index_page_livewire_component()
     {
         $user = User::factory()->create();
+        $userB = User::factory()->create();
 
         $category1 = Category::factory()->create(['name'=>'Category 1']);
         $status = Status::factory()->create(['name'=>'Open', 'classes'=>'bg-gray-200']);
@@ -99,9 +100,24 @@ class VoteIndexPageTest extends TestCase
             ]);
         }
 
-        Livewire::test(IdeaIndex::class, [
-            'idea' => Idea::withCount('votes')->first()
+        $response = $this->actingAs($user)->get(route('idea.index'));
+        $insertedIdea = ($response['ideas']->items()[0]);
+
+        Livewire::actingAs($user)->test(IdeaIndex::class, [
+            'idea' => $insertedIdea
         ])
-        ->assertSeeHtml('<div class="font-semibold text-2xl">10</div>');
+        ->assertViewHas('idea', function(Idea $idea){
+            return $idea->voted_by_user && $idea->votes_count === 10;
+        });
+
+        $response = $this->actingAs($userB)->get(route('idea.index'));
+        $insertedIdea = ($response['ideas']->items()[0]);
+
+        Livewire::actingAs($userB)->test(IdeaIndex::class, [
+            'idea' => $insertedIdea
+        ])
+        ->assertViewHas('idea', function(Idea $idea){
+            return !$idea->voted_by_user && $idea->votes_count === 10;
+        });
     }
 }
