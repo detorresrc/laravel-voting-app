@@ -23,22 +23,22 @@ class Idea extends Model
         ];
     }
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function category()
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function status()
+    public function status(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Status::class);
     }
 
-    public function votes()
+    public function votes(): \Illuminate\Database\Eloquent\Relations\belongsToMany
     {
         return $this->belongsToMany(User::class, 'votes');
     }

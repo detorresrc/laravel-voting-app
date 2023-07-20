@@ -43,12 +43,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function ideas()
+    public function ideas(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Idea::class);
     }
 
-    public function getAvatar()
+    public function getAvatar(): string
     {
         $firstCharacter = $this->email[0];
         if(is_numeric($firstCharacter))
@@ -59,7 +59,7 @@ class User extends Authenticatable
         return 'https://www.gravatar.com/avatar/' . md5($this->email).'?s=200&d='.urlencode("https://s3.amazonaws.com/laracasts/images/forum/avatars/default-avatar-{$firstCharacter}.png");
     }
 
-    public function votes()
+    public function votes(): \Illuminate\Database\Eloquent\Relations\belongsToMany
     {
         return $this->belongsToMany(Idea::class, 'votes');
     }
