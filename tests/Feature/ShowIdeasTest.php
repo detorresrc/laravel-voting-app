@@ -73,4 +73,36 @@ class ShowIdeasTest extends TestCase
         $response->assertSee($ideaOne->category->name);
         $response->assertSee('<div class="bg-gray-200 text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 py-2 px-4">'.$ideaOne->status->name.'</div>', false);
     }
+
+    /** @test */
+    public function in_app_back_button_works_when_index_page_visited_first()
+    {
+        $category1 = Category::factory()->create(['name'=>'Category 1']);
+        $category2 = Category::factory()->create(['name'=>'Category 2']);
+
+        $statusOpen = Status::factory()->create(['name'=>'Open', 'classes'=>'bg-gray-200']);
+        $statusConsidering = Status::factory()->create(['name'=>'Considering', 'classes'=>'bg-purple text-white']);
+
+        $ideaOne = Idea::factory()->create([
+            'title' => 'My First Idea',
+            'description' => 'Description of my first Idea',
+            'status_id' => $statusOpen->id,
+            'category_id' => $category1->id
+        ]);
+
+        $responseA = $this->get(route('idea.index', [
+                        'category' => $category1->name,
+                        'status' => $statusOpen->name
+                    ]));
+
+        $responseB = $this->get(route('idea.show', $ideaOne) );
+
+        $this->assertStringContainsString(
+            explode("?", route('idea.index', [
+                'category' => $category1->name,
+                'status' => $statusOpen->name
+            ]))[1] ?? null,
+            $responseB['backurl']
+        );
+    }
 }
