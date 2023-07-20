@@ -60,7 +60,7 @@ class IdeasIndex extends Component
                     })
                     ->when($this->category!='All Categories', function($query) use ($categories){
                         $categories = $categories->pluck('id', 'name');
-                        
+
                         if(isset($categories[$this->category]))
                             return $query->where('category_id', $categories[$this->category]);
 
