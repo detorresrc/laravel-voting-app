@@ -17,7 +17,7 @@
     </head>
     <body class="font-sans bg-gray-background antialiased text-gray-900 text-sm">
         <header class="flex flex-col md:flex-row items-center justify-between px-8 py-4">
-            <a href="#">
+            <a href="{{route('idea.index')}}">
                 <img src="{{ asset('img/logo.svg') }}" alt="Laracasts Logo">
             </a>
             <div class="flex items-center mt-2 md:mt-0">
@@ -82,17 +82,7 @@
                 </div>
             </div>
             <div class="w-full md:w-175 px-2 md:px-0">
-                <nav class="hidden md:flex item-center justify-between text-xs">
-                    <ul class="flex uppercase font-semibold space-x-10 border-b-4 pb-3">
-                        <li><a href="" class="border-b-4 pb-3 border-blue">All Ideas (87)</a></li>
-                        <li><a href="" class="text-gray-400 transition duration-150 ease-in border-b-4 pb-3 hover:border-blue">Considering (6)</a></li>
-                        <li><a href="" class="text-gray-400 transition duration-150 ease-in border-b-4 pb-3 hover:border-blue">In Progress (6)</a></li>
-                    </ul>
-                    <ul class="flex uppercase font-semibold space-x-10 border-b-4 pb-3">
-                        <li><a href="" class="border-b-4 pb-3 border-blue">Implemented (10)</a></li>
-                        <li><a href="" class="text-gray-400 transition duration-150 ease-in border-b-4 pb-3 hover:border-blue">Closed (6)</a></li>
-                    </ul>
-                </nav>
+                @livewire('status-filters')
 
                 <div class="mt-8">
                     {{ $slot  }}

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Idea;
+use App\Models\Status;
 use App\Models\Vote;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -13,16 +14,25 @@ class IdeasIndex extends Component
 
     public function render()
     {
+        $statuses = Status::all()->pluck('id','name');
+
         return view('livewire.ideas-index', [
-            'ideas' => Idea::with('category', 'user', 'status')
-                ->addSelect(['voted_by_user' =>
-                    Vote::select('id')
-                        ->where('user_id', auth()->id())
-                        ->whereColumn('idea_id', 'ideas.id')
-                ])
-                ->withCount('votes')
-                ->orderBy('id', 'desc')
-                ->simplePaginate(10)
+            'ideas' =>
+                Idea::with('category', 'user', 'status')
+                    ->when(request()->status!='All', function($query) use ($statuses){
+                        if(isset($statuses[request()->status]))
+                            return $query->where('status_id', $statuses[request()->status]);
+
+                        return $query;
+                    })
+                    ->addSelect(['voted_by_user' =>
+                        Vote::select('id')
+                            ->where('user_id', auth()->id())
+                            ->whereColumn('idea_id', 'ideas.id')
+                    ])
+                    ->withCount('votes')
+                    ->orderBy('id', 'desc')
+                    ->simplePaginate(10)
         ]);
     }
 }
