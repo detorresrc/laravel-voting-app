@@ -20,6 +20,9 @@ class Status extends Model
     public static function getStatusCount()
     {
         return Idea::select('status_id', DB::raw('count(*) as count'))
+//            ->when(strcasecmp(request()->filter,'My Ideas')===0, function($query){
+//                return $query->where('user_id', auth()->id());
+//            })
             ->groupBy('status_id')
             ->pluck('count', 'status_id')
             ->toArray();

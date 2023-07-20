@@ -15,10 +15,12 @@ class IdeasIndex extends Component
 
     public $status;
     public $category;
+    public $filter;
 
     protected $queryString = [
         'status',
-        'category'
+        'category',
+        'filter'
     ];
 
     protected $listeners = [
@@ -29,6 +31,7 @@ class IdeasIndex extends Component
     {
         $this->status = request()->status ?? 'All';
         $this->category = request()->category ?? 'All Categories';
+        $this->filter = request()->filter ?? '';
     }
 
     public function queryStringUpdatedStatus($newStatus) : void
@@ -37,11 +40,22 @@ class IdeasIndex extends Component
         $this->status = $newStatus;
     }
 
-    public function updatingCategory($val)
+    public function updatingCategory(): void
     {
         $this->resetPage();
+    }
 
-        $this->category = $val;
+    public function updatingFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFilter(): void
+    {
+        if(strcasecmp($this->filter, 'My Ideas')===0 && !auth()->check()) {
+            $this->redirect(route('login'));
+        }else
+            $this->emit('queryStringUpdatedFilter', $this->filter);
     }
 
     public function render()
@@ -65,6 +79,12 @@ class IdeasIndex extends Component
                             return $query->where('category_id', $categories[$this->category]);
 
                         return $query;
+                    })
+                    ->when(strcasecmp($this->filter,'Top Voted')===0, function($query){
+                        return $query->orderByDesc('votes_count');
+                    })
+                    ->when(strcasecmp($this->filter,'My Ideas')===0, function($query){
+                        return $query->where('user_id', auth()->id());
                     })
                     ->addSelect(['voted_by_user' =>
                         Vote::select('id')

@@ -4,6 +4,9 @@ namespace App\Http\Livewire;
 
 use App\Models\Idea;
 use App\Models\Status;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Livewire\Component;
@@ -11,16 +14,35 @@ use Livewire\Component;
 class StatusFilters extends Component
 {
     public $status;
+
+    public $filter;
+
     public $statusCount = [];
 
+    protected $listeners = [
+        'queryStringUpdatedFilter'
+    ];
+
+    /**
+     * @return void
+     */
     public function mount(): void
     {
         $this->statusCount = Status::getStatusCount();
         $this->status = request()->status ?? 'All';
+        $this->filter = request()->filter ?? '';
 
         if(Route::currentRouteName() == 'idea.show'){
             $this->status = null;
         }
+    }
+
+    /**
+     * @param $newVal
+     * @return void
+     */
+    public function queryStringUpdatedFilter($newVal) : void
+    {
     }
 
     public function setStatus($status)
@@ -35,7 +57,10 @@ class StatusFilters extends Component
         }
     }
 
-    public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    /**
+     * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+     */
+    public function render(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.status-filters');
     }
