@@ -2,12 +2,15 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Idea;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Livewire\Component;
 
 class StatusFilters extends Component
 {
     public $status = 'All';
+    public $statusCount = [];
 
     protected $queryString = [
         'status'
@@ -15,6 +18,11 @@ class StatusFilters extends Component
 
     public function mount(): void
     {
+        $this->statusCount = Idea::select('status_id', DB::raw('count(*) as count'))
+                                ->groupBy('status_id')
+                                ->pluck('count', 'status_id')
+                                ->toArray();
+
         if(Route::currentRouteName() == 'idea.show'){
             $this->status = null;
             $this->queryString = [];
