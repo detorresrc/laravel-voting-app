@@ -16,11 +16,13 @@ class IdeasIndex extends Component
     public $status;
     public $category;
     public $filter;
+    public $search;
 
     protected $queryString = [
         'status',
         'category',
-        'filter'
+        'filter',
+        'search'
     ];
 
     protected $listeners = [
@@ -32,6 +34,7 @@ class IdeasIndex extends Component
         $this->status = request()->status ?? 'All';
         $this->category = request()->category ?? 'All Categories';
         $this->filter = request()->filter ?? '';
+        $this->search = request()->search ?? '';
     }
 
     public function queryStringUpdatedStatus($newStatus) : void
@@ -46,6 +49,11 @@ class IdeasIndex extends Component
     }
 
     public function updatingFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSearch()
     {
         $this->resetPage();
     }
@@ -85,6 +93,9 @@ class IdeasIndex extends Component
                     })
                     ->when(strcasecmp($this->filter,'My Ideas')===0, function($query){
                         return $query->where('user_id', auth()->id());
+                    })
+                    ->when(strlen($this->search)>=3, function($query){
+                        return $query->where('title', 'like', '%'.trim($this->search).'%');
                     })
                     ->addSelect(['voted_by_user' =>
                         Vote::select('id')
