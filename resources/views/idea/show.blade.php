@@ -8,6 +8,8 @@
 
     <livewire:idea-show :idea="$idea" :votes-count="$votesCount"/>
 
+    @livewire('edit-idea')
+
     <div class="comments-container space-y-6 md:ml-22 relative pt-4 my-8 mt-1">
         <div class="comment-container bg-white rounded-xl flex cursor-pointer mt-4 relative">
             <div class="flex flex-col md:flex-row flex-1 px-4 py-6">
@@ -45,6 +47,7 @@
                                     @keydown.escape.window="isOpen = false"
                                     class="absolute w-44 text-left font-semibold bg-white shadow-dialog rounded-xl py-3 md:ml-8 top-8 md:top-6 right-0 md:left-0 z-10">
                                     <li>
+                                        <a href="#" class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Edit Idea</a>
                                         <a href="#" class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Mark as Span</a>
                                         <a href="#" class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Delete Post</a>
                                     </li>
