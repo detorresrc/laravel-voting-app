@@ -46,7 +46,13 @@
                                 @keydown.escape.window="isOpen = false"
                                 class="absolute w-44 text-left font-semibold bg-white shadow-dialog rounded-xl py-3 md:ml-8 top-8 md:top-6 right-0 md:left-0 z-10">
                                 <li>
-                                    <a href="#" class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Edit Idea</a>
+                                    <a
+                                        href="#"
+                                        @click="
+                                            isOpen = false
+                                            $dispatch('custom-show-edit-idea-modal')
+                                        "
+                                        class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Edit Idea</a>
                                     <a href="#" class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Mark as Span</a>
                                     <a href="#" class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Delete Post</a>
                                 </li>

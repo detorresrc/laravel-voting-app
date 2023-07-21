@@ -1,11 +1,27 @@
-<div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div
+    x-cloak
+    x-data="{isOpen: false}"
+    x-show="isOpen"
+    @keydown.escape.window="isOpen = false"
+    @custom-show-edit-idea-modal.window="isOpen = true"
+    class="relative z-10"
+    aria-labelledby="modal-title"
+    role="dialog"
+    aria-modal="true">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
     <div class="fixed inset-0 z-10 overflow-y-auto">
         <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-            <div class="modal relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+            <div
+                x-show="isOpen"
+                x-transition:enter.duration.200ms
+                x-transition:leave.duration.200ms
+                x-transition.scale.origin.top
+                class="modal relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
 
                 <div class="absolute top-0 right-0 pt-3 pr-3">
-                    <button class="text-gray.400 hover:text-gray-500">
+                    <button
+                        @click="isOpen = false"
+                        class="text-gray.400 hover:text-gray-500">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                             <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd" />
                         </svg>

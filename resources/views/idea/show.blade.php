@@ -6,8 +6,7 @@
         <span class="ml-2">All ideas (or back or chosen category with filters)</span>
     </a>
 
-    <livewire:idea-show :idea="$idea" :votes-count="$votesCount"/>
-
+    @livewire('idea-show', ['idea' => $idea, 'votesCount' => $votesCount])
     @livewire('edit-idea')
 
     <div class="comments-container space-y-6 md:ml-22 relative pt-4 my-8 mt-1">
