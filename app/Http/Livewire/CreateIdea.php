@@ -28,7 +28,7 @@ class CreateIdea extends Component
 
     public function createIdea()
     {
-        if(!auth()->check()) abort(Illuminate\Http\Response::HTTP_FORBIDDEN);
+        if(!auth()->check()) abort(\Illuminate\Http\Response::HTTP_FORBIDDEN);
         $this->validate();
 
         Idea::create([

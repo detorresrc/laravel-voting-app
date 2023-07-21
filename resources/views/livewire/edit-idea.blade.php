@@ -1,5 +1,10 @@
 <div
     x-cloak
+    x-init="
+        window.livewire.on('ideaWasUpdated', () => {
+            isOpen = false
+        })
+    "
     x-data="{isOpen: false}"
     x-show="isOpen"
     @keydown.escape.window="isOpen = false"
@@ -31,7 +36,7 @@
                 <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <h3 class="text-center text-lg font-medium text-gray-900">Edit Idea</h3>
                     <p class="text-xs text-center leading-4 px-6 text-gray-500 mt-4">You have one hour to edit your idea from the time you created it.</p>
-                    <form wire:submit.prevent="createIdea" action="#" method="POST" class="space-y-4 px-4 py-6">
+                    <form wire:submit.prevent="updateIdea" action="#" method="POST" class="space-y-4 px-4 py-6">
                         <div>
                             <input wire:model.defer="title" type="text" class="w-full bg-gray-100 border-none rounded-xl placeholder-gray-900 px-4 py-2 text-sm" placeholder="Your Idea">
                             @error('title')
@@ -67,30 +72,8 @@
                             </button>
                             <button type="submit"
                                     class="flex items-center justify-center w-1/2 h-11 text-xs bg-blue text-white font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in  px-6 py-3">
-                                <span>Submit</span>
+                                <span>Update</span>
                             </button>
-                        </div>
-
-                        <div>
-                            @if (session('success_message'))
-                                <div
-                                    x-data="{isVisible: true}"
-                                    x-init="
-                                    setTimeout(()=>{
-                                        isVisible=false
-                                    }, 5000)
-                                    "
-                                    x-show="isVisible"
-                                    x-transition:enter="transition ease-out duration-300"
-                                    x-transition:enter-start="opacity-0 scale-90"
-                                    x-transition:enter-end="opacity-100 scale-100"
-                                    x-transition:leave="transition ease-in duration-300"
-                                    x-transition:leave-start="opacity-100 scale-100"
-                                    x-transition:leave-end="opacity-0 scale-90"
-                                    class="text-green mt-4">
-                                    {{ session('success_message')  }}
-                                </div>
-                            @endif
                         </div>
                     </form>
 
