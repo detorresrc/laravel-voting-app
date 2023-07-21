@@ -19,10 +19,10 @@ class IdeasIndex extends Component
     public $search;
 
     protected $queryString = [
-        'status',
-        'category',
-        'filter',
-        'search'
+        'status' => ['except' => ''],
+        'category' => ['except' => ''],
+        'filter' => ['except' => ''],
+        'search' => ['except' => '']
     ];
 
     protected $listeners = [
@@ -31,8 +31,8 @@ class IdeasIndex extends Component
 
     public function mount()
     {
-        $this->status = request()->status ?? 'All';
-        $this->category = request()->category ?? 'All Categories';
+        $this->status = request()->status ?? '';
+        $this->category = request()->category ?? '';
         $this->filter = request()->filter ?? '';
         $this->search = request()->search ?? '';
     }

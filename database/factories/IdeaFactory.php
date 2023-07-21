@@ -20,11 +20,22 @@ class IdeaFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => $this->faker->randomElement(User::all())['id'] ?? User::factory(),
-            'category_id' => $this->faker->randomElement(Category::all())['id'] ?? Category::factory(),
-            'status_id' => $this->faker->randomElement(Status::all())['id'] ?? Status::factory(),
+            'user_id' => User::factory(),
+            'category_id' => Category::factory(),
+            'status_id' => Status::factory(),
             'title' => ucwords( $this->faker->words(4, true) ),
             'description' => $this->faker->paragraph(5)
         ];
+    }
+
+    public function existing(): IdeaFactory
+    {
+        return $this->state(function(array $attributes){
+            return [
+                'user_id' => $this->faker->numberBetween(1, 20),
+                'category_id' => $this->faker->numberBetween(1, 4),
+                'status_id' => $this->faker->numberBetween(1, 5)
+            ];
+        });
     }
 }
