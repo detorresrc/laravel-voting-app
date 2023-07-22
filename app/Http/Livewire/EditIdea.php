@@ -35,10 +35,6 @@ class EditIdea extends Component
 
         $this->validate();
 
-        $this->idea->title = $this->title;
-        $this->idea->category_id = $this->category;
-        $this->idea->description = $this->description;
-
         $this->idea->update([
             'title' => $this->title,
             'category_id' => $this->category,

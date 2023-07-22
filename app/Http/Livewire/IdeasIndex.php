@@ -74,13 +74,13 @@ class IdeasIndex extends Component
         return view('livewire.ideas-index', [
             'ideas' =>
                 Idea::with('category', 'user', 'status')
-                    ->when($this->status!='All', function($query) use ($statuses){
+                    ->when($this->status, function($query) use ($statuses){
                         if(isset($statuses[$this->status]))
                             return $query->where('status_id', $statuses[$this->status]);
 
                         return $query;
                     })
-                    ->when($this->category!='All Categories', function($query) use ($categories){
+                    ->when($this->category, function($query) use ($categories){
                         $categories = $categories->pluck('id', 'name');
 
                         if(isset($categories[$this->category]))

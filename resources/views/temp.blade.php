@@ -1,0 +1,12 @@
+<div
+class="bg-green"
+></div>
+<div
+    class="bg-purple"
+></div>
+<div
+    class="bg-yellow"
+></div>
+<div
+    class="bg-red"
+></div>
