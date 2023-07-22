@@ -56,7 +56,15 @@
                                         class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Edit Idea</a>
                                     @endcan
                                     <a href="#" class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Mark as Span</a>
-                                    <a href="#" class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Delete Post</a>
+                                    @can('delete', $idea)
+                                    <a
+                                        href="#"
+                                        @click.prevent="
+                                            isOpen = false
+                                            $dispatch('custom-show-delete-idea-modal')
+                                        "
+                                        class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Delete Idea</a>
+                                    @endcan
                                 </li>
                             </ul>
                         </div>
