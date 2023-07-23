@@ -9,13 +9,15 @@
     @livewire('idea-show', ['idea' => $idea, 'votesCount' => $votesCount])
 
     @auth
-        @can('update', $idea)
-            @livewire('edit-idea', ['idea' => $idea])
-        @endcan
-        @can('delete', $idea)
-            @livewire('delete-idea', ['idea' => $idea])
-        @endcan
-        @livewire('mark-idea-as-spam', ['idea' => $idea])
+        @push('modals')
+            @can('update', $idea)
+                @livewire('edit-idea', ['idea' => $idea])
+            @endcan
+            @can('delete', $idea)
+                @livewire('delete-idea', ['idea' => $idea])
+            @endcan
+            @livewire('mark-idea-as-spam', ['idea' => $idea])
+        @endpush
     @endauth
 
     <div class="comments-container space-y-6 md:ml-22 relative pt-4 my-8 mt-1">
