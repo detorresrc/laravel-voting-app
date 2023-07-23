@@ -8,17 +8,7 @@
 
     @livewire('idea-show', ['idea' => $idea, 'votesCount' => $votesCount])
 
-    @auth
-        @push('modals')
-            @can('update', $idea)
-                @livewire('edit-idea', ['idea' => $idea])
-            @endcan
-            @can('delete', $idea)
-                @livewire('delete-idea', ['idea' => $idea])
-            @endcan
-            @livewire('mark-idea-as-spam', ['idea' => $idea])
-        @endpush
-    @endauth
+    <x-modals-container :idea="$idea"/>
 
     <div class="comments-container space-y-6 md:ml-22 relative pt-4 my-8 mt-1">
         <div class="comment-container bg-white rounded-xl flex cursor-pointer mt-4 relative">
