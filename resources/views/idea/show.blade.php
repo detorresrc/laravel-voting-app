@@ -10,6 +10,8 @@
 
     <x-modals-container :idea="$idea"/>
 
+    <x-success-notification/>
+
     <div class="comments-container space-y-6 md:ml-22 relative pt-4 my-8 mt-1">
         <div class="comment-container bg-white rounded-xl flex cursor-pointer mt-4 relative">
             <div class="flex flex-col md:flex-row flex-1 px-4 py-6">

@@ -41,7 +41,10 @@ class EditIdea extends Component
             'description' => $this->description
         ]);
 
-        $this->emit('ideaWasUpdated');
+        $this->emit('ideaWasUpdated', [
+            'message' => 'Idea was updated successfully!',
+            'idea' => $this->idea->refresh()
+        ]);
     }
 
     public function render()
