@@ -10,7 +10,12 @@
                 <h4 class="text-xl font-semibold mt-2 md:mt-0">
                     {{ $idea->title  }}
                 </h4>
-                <div class="text-gray-600 mt-3 line-clamp-3">{{ $idea->description  }}</div>
+                <div class="text-gray-600 mt-3 line-clamp-3">
+                    @admin
+                    <div class="text-red mb-2">Spam Reports: {{ $idea->spam_reports }}</div>
+                    @endadmin
+                    {{ $idea->description  }}
+                </div>
                 <div class="flex flex-col md:flex-row md:items-center justify-between mt-6">
                     <div class="flex items-center text-xs text-gray-400 font-semibold space-x-2">
                         <div class="hidden md:block font-bold text-gray-900">{{ $idea->user->name  }}</div>
@@ -25,6 +30,7 @@
                         x-data="{ isOpen: false }"
                         class="flex items-center space-x-2 mt-5 md:mt-0">
                         <div class="{{ $idea->status->classes  }} text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 py-2 px-4">{{ $idea->status->name  }}</div>
+                        @auth
                         <div class="relative">
                             <button
                                 @click="isOpen = !isOpen"
@@ -55,7 +61,13 @@
                                         "
                                         class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Edit Idea</a>
                                     @endcan
-                                    <a href="#" class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Mark as Span</a>
+                                    <a
+                                        href="#"
+                                        @click.prevent="
+                                            isOpen = false
+                                            $dispatch('custom-show-mark-as-spam-idea-modal')
+                                        "
+                                        class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Mark as Spam</a>
                                     @can('delete', $idea)
                                     <a
                                         href="#"
@@ -68,6 +80,7 @@
                                 </li>
                             </ul>
                         </div>
+                        @endauth
                     </div>
 
                     <div class="flex items-center md:hidden mt-4 md:mt-0">
@@ -143,11 +156,11 @@
                 </div>
             </div>
             @auth
-                @if(auth()->user()->isAdmin())
+                @admin
                     @livewire('set-status', [
                         'idea' => $idea
                     ])
-                @endif
+                @endadmin
             @endauth
         </div>
         <div class="hidden md:block md:flex items-center space-x-3">

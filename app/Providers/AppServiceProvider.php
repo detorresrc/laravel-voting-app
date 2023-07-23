@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,5 +26,7 @@ class AppServiceProvider extends ServiceProvider
 //                'categories' => Category::all()
 //            ]);
 //        });
+
+        Blade::if('admin', fn() => auth()->check() && auth()->user()->isAdmin() );
     }
 }

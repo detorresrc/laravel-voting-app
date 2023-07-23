@@ -43,6 +43,7 @@ namespace App\Models{
  * @property string $title
  * @property string $slug
  * @property string|null $description
+ * @property int $spam_reports
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Category $category
@@ -60,6 +61,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Idea whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Idea whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Idea whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Idea whereSpamReports($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Idea whereStatusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Idea whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Idea whereUpdatedAt($value)

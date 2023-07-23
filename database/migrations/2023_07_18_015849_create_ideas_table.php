@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique('uniq_slug');
             $table->text('description')->nullable();
+            $table->integer('spam_reports')->default(0);
             $table->timestamps();
         });
     }

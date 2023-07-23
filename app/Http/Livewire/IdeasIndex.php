@@ -94,6 +94,9 @@ class IdeasIndex extends Component
                     ->when(strcasecmp($this->filter,'My Ideas')===0, function($query){
                         return $query->where('user_id', auth()->id());
                     })
+                    ->when(strcasecmp($this->filter,'Spam Ideas')===0, function($query){
+                        return $query->where('spam_reports', '>', 0)->orderBy('spam_reports', 'DESC');
+                    })
                     ->when(strlen($this->search)>=3, function($query){
                         return $query->where('title', 'like', '%'.trim($this->search).'%');
                     })
