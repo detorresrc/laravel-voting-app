@@ -11,5 +11,6 @@
             @livewire('delete-idea', ['idea' => $idea])
         @endcan
         @livewire('mark-idea-as-spam', ['idea' => $idea])
+        @livewire('mark-idea-as-not-spam', ['idea' => $idea])
     @endpush
 @endauth

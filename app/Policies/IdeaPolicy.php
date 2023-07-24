@@ -65,4 +65,9 @@ class IdeaPolicy
     {
         //
     }
+
+    public function markAsNotSpam(User $user, Idea $idea) : bool
+    {
+        return $user->isAdmin();
+    }
 }

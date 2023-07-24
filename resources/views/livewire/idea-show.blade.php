@@ -61,22 +61,33 @@
                                         "
                                         class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Edit Idea</a>
                                     @endcan
+                                    @can('delete', $idea)
+                                        <a
+                                            href="#"
+                                            @click.prevent="
+                                        isOpen = false
+                                        $dispatch('custom-show-delete-idea-modal')
+                                        "
+                                                class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Delete Idea</a>
+                                        @endcan
                                     <a
                                         href="#"
                                         @click.prevent="
-                                            isOpen = false
-                                            $dispatch('custom-show-mark-as-spam-idea-modal')
+                                        isOpen = false
+                                        $dispatch('custom-show-mark-as-spam-idea-modal')
                                         "
                                         class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Mark as Spam</a>
-                                    @can('delete', $idea)
+                                    @if($idea->spam_reports>0)
+                                    @can('mark-as-not-spam', $idea)
                                     <a
                                         href="#"
                                         @click.prevent="
-                                            isOpen = false
-                                            $dispatch('custom-show-delete-idea-modal')
+                                        isOpen = false
+                                        $dispatch('custom-show-mark-as-not-spam-idea-modal')
                                         "
-                                        class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Delete Idea</a>
+                                        class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Not Spam</a>
                                     @endcan
+                                    @endif
                                 </li>
                             </ul>
                         </div>
