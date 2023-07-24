@@ -18,6 +18,7 @@ class MarkIdeaAsNotSpam extends Component
     public function markAsNotSpam()
     {
         if(!auth()->check()) abort(\Illuminate\Http\Response::HTTP_FORBIDDEN);
+        if(auth()->user()->cannot('markAsNotSpam', $this->idea)) abort(\Illuminate\Http\Response::HTTP_FORBIDDEN);
 
         $this->idea->spam_reports = 0;
         $this->idea->save();

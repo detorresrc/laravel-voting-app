@@ -66,8 +66,18 @@ class MarkIdeaAsNotSpamTest extends TestCase
     /** @test */
     public function mark_idea_as_not_spam_doest_not_works_if_user_has_no_authorization()
     {
-        Livewire::test(MarkIdeaAsNotSpam::class, [
-                'idea' => Idea::factory()->create()
+        $user = User::factory()->create([
+            'email' => 'detorresrc@gmail.com'
+        ]);
+
+        $idea = Idea::factory()->create(['user_id' => $user->id]);
+
+        $user2 = User::factory()->create([
+            'email' => 'test@gmail.com'
+        ]);
+
+        Livewire::actingAs($user2)->test(MarkIdeaAsNotSpam::class, [
+                'idea' => $idea
             ])
             ->call('markAsNotSpam')
             ->assertForbidden();;
