@@ -18,7 +18,8 @@ class IdeaShow extends Component
         'statusWasUpdated',
         'ideaWasUpdated',
         'ideaWasMarkedAsSpam',
-        'ideaWasMarkedAsNotSpam'
+        'ideaWasMarkedAsNotSpam',
+        'ideaCommentWasAdded'
     ];
 
     public function mount(Idea $idea, $votesCount)
@@ -49,6 +50,11 @@ class IdeaShow extends Component
     }
 
     public function ideaWasMarkedAsNotSpam()
+    {
+        $this->statusWasUpdated();
+    }
+
+    public function ideaCommentWasAdded()
     {
         $this->statusWasUpdated();
     }

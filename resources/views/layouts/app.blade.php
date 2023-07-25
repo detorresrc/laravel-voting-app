@@ -74,7 +74,7 @@
                         </a>
                         <a
                             href="{{ route('register') }}"
-                            class="inline-block justify-center w-1/2 h-11 text-xs bg-gray-200 text-white font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3">
+                            class="inline-block justify-center w-1/2 h-11 text-xs bg-gray-200 text-black-50 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3">
                             Sign Up
                         </a>
                     </div>

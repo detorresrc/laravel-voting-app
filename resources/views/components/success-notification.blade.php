@@ -19,6 +19,9 @@
             Livewire.on('ideaWasMarkedAsNotSpam', (params) => {
                 showNotification(params.message)
             })
+            Livewire.on('ideaCommentWasAdded', (params) => {
+                showNotification(params.message)
+            })
         @endif
         "
     x-data="{

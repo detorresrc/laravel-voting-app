@@ -41,7 +41,7 @@ class IdeaController extends Controller
     public function show(Idea $idea)
     {
 
-        $idea->load('comments.user');
+//        $idea->load('comments.user');
 
         return view('idea.show', [
             'idea' => $idea,

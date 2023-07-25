@@ -9,10 +9,15 @@
             @endif
         </div>
         <div class="w-full md:mx-4 justify-between">
-            <div class="text-gray-600 line-clamp-3">{{ $comment->body }}</div>
+            <div class="text-gray-600">{{ $comment->body }}</div>
             <div class="flex items-center justify-between mt-6">
                 <div class="flex items-center text-xs text-gray-400 font-semibold space-x-2">
                     <div class="font-bold text-gray-900">{{ $comment->user->name }}</div>
+                    <div>&bull;</div>
+                    @if($comment->user->id == $idea->user_id)
+                        <div><span class="bg-gray-200 text-gray-700 px-2 py-1 rounded rounded-lg border">OP</span></div>
+                        <div>&bull;</div>
+                    @endif
                     <div>{{  $comment->created_at->diffForHumans() }}</div>
                 </div>
                 <div
