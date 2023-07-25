@@ -34,6 +34,32 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Comment
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $idea_id
+ * @property string $body
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Idea $idea
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\CommentFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereBody($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereIdeaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUserId($value)
+ */
+	class Comment extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Idea
  *
  * @property int $id
@@ -47,6 +73,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Category $category
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read int|null $comments_count
  * @property-read \App\Models\Status $status
  * @property-read \App\Models\User $user
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $votes
@@ -107,6 +135,8 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read int|null $comments_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Idea> $ideas
  * @property-read int|null $ideas_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications

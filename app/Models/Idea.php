@@ -7,6 +7,9 @@ use App\Exceptions\VoteNotFoundException;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\belongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Idea extends Model
 {
@@ -23,24 +26,29 @@ class Idea extends Model
         ];
     }
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function status(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class);
     }
 
-    public function votes(): \Illuminate\Database\Eloquent\Relations\belongsToMany
+    public function votes(): belongsToMany
     {
         return $this->belongsToMany(User::class, 'votes');
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function isVotedByUser(?User $user)

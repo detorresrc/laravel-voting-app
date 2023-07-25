@@ -74,6 +74,8 @@ class IdeasIndex extends Component
         return view('livewire.ideas-index', [
             'ideas' =>
                 Idea::with('category', 'user', 'status')
+                    ->withCount('comments')
+                    ->withCount('votes')
                     ->when($this->status, function($query) use ($statuses){
                         if(isset($statuses[$this->status]))
                             return $query->where('status_id', $statuses[$this->status]);
@@ -105,7 +107,6 @@ class IdeasIndex extends Component
                             ->where('user_id', auth()->id())
                             ->whereColumn('idea_id', 'ideas.id')
                     ])
-                    ->withCount('votes')
                     ->orderBy('id', 'desc')
                     ->simplePaginate(10),
             'categories' => $categories

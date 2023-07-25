@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\belongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -43,9 +45,14 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function ideas(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function ideas(): HasMany
     {
         return $this->hasMany(Idea::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function getAvatar(): string
@@ -59,7 +66,7 @@ class User extends Authenticatable
         return 'https://www.gravatar.com/avatar/' . md5($this->email).'?s=200&d='.urlencode("https://s3.amazonaws.com/laracasts/images/forum/avatars/default-avatar-{$firstCharacter}.png");
     }
 
-    public function votes(): \Illuminate\Database\Eloquent\Relations\belongsToMany
+    public function votes(): belongsToMany
     {
         return $this->belongsToMany(Idea::class, 'votes');
     }

@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Idea;
 use App\Models\Vote;
+use App\Models\Comment;
 use Livewire\Component;
 
 class DeleteIdea extends Component
@@ -21,6 +22,7 @@ class DeleteIdea extends Component
         if(auth()->user()->cannot('delete', $this->idea)) abort(\Illuminate\Http\Response::HTTP_FORBIDDEN);
 
         Vote::whereIdeaId($this->idea->id)->delete();
+        Comment::whereIdeaId($this->idea->id)->delete();
         Idea::destroy($this->idea->id);
 
         session()->flash('success_message', 'Idea was deleted successfully!');
