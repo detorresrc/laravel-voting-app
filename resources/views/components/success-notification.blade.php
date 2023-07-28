@@ -22,6 +22,9 @@
             Livewire.on('ideaCommentWasAdded', (params) => {
                 showNotification(params.message)
             })
+            Livewire.on('ideaCommentWasUpdated', (params) => {
+                showNotification(params.message)
+            })
         @endif
         "
     x-data="{

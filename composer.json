@@ -13,7 +13,8 @@
         "laravel/horizon": "^5.18",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
-        "livewire/livewire": "^2.12"
+        "livewire/livewire": "^2.12",
+        "propaganistas/laravel-fakeid": "^4.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",
