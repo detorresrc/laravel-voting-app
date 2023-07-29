@@ -32,6 +32,11 @@
                         <ul
                             x-cloak
                             x-show="isOpen"
+                            x-init="
+                                Livewire.on('setEditCommentCompleted', () => {
+                                    $dispatch('custom-show-delete-idea-comment-modal')
+                                })
+                            "
                             x-transition:enter="transition ease-out duration-300"
                             x-transition:enter-start="opacity-0 scale-90"
                             x-transition:enter-end="opacity-100 scale-100"
@@ -47,13 +52,25 @@
                                 <a
                                     href="#"
                                     @click.prevent="
-                                        isOpen = false
-                                        Livewire.emit('setEditComment', {{ $comment->getRouteKey() }});
+                                        $nextTick(() => {
+                                            isOpen = false
+                                            Livewire.emit('setEditComment', {{ $comment->getRouteKey() }})
+                                        })
                                     "
                                     class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Edit Comment</a>
                                 @endcan
+                                @can('delete', $comment)
+                                <a
+                                    href="#"
+                                    @click.prevent="
+                                        $nextTick(() => {
+                                            isOpen = false
+                                            Livewire.emit('setDeleteComment', {{ $comment->getRouteKey() }})
+                                        })
+                                    "
+                                    class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Delete Comment</a>
+                                @endcan
                                 <a href="#" class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Mark as Spam</a>
-                                <a href="#" class="block hover:bg-gray-100 px-5 py-3 transition duration-150 ease-in">Delete Post</a>
                                 @endauth
                             </li>
                         </ul>

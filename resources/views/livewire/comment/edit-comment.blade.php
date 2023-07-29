@@ -3,7 +3,6 @@
     x-init="
         Livewire.on('setEditComment', (params) => {
             isOpen = true
-{{--            $nextTick(() => $refs.refBody.focus())--}}
             setTimeout(()=>$refs.refBody.focus(), 300)
         })
         Livewire.on('ideaCommentWasUpdated', () => {
