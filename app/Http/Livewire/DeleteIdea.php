@@ -21,8 +21,6 @@ class DeleteIdea extends Component
         if(!auth()->check()) abort(\Illuminate\Http\Response::HTTP_FORBIDDEN);
         if(auth()->user()->cannot('delete', $this->idea)) abort(\Illuminate\Http\Response::HTTP_FORBIDDEN);
 
-        Vote::whereIdeaId($this->idea->id)->delete();
-        Comment::whereIdeaId($this->idea->id)->delete();
         Idea::destroy($this->idea->id);
 
         session()->flash('success_message', 'Idea was deleted successfully!');

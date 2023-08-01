@@ -46,7 +46,7 @@
                 @endif
 
                 <a href="#">
-                    <img src="https://www.gravatar.com/avatar/0000000000000000000000000?d=mp" class="w-10 h-10 rounded-full"/>
+                    <img src="{{ auth()->user()->getAvatar() }}" class="w-10 h-10 rounded-full"/>
                 </a>
             </div>
         </header>
