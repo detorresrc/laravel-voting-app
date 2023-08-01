@@ -2,13 +2,17 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Livewire\Traits\WithAuthRedirects;
 use App\Models\Comment;
 use App\Models\Idea;
+use App\Notifications\CommentAdded;
 use Illuminate\Http\Response;
 use Livewire\Component;
 
 class AddComment extends Component
 {
+    use WithAuthRedirects;
+
     public Idea $idea;
 
     public $comment;
@@ -36,6 +40,8 @@ class AddComment extends Component
         $this->idea->comments()->save($comment);
 
         $this->reset('comment');
+
+        $this->idea->user->notify(new CommentAdded($comment));
 
         $this->emit('ideaCommentWasAdded', [
             'message' => 'Idea comment successfully added!'
