@@ -1,4 +1,4 @@
-<div class="comment-container @if($comment->user->isAdmin()) is-admin @endif bg-white rounded-xl flex cursor-pointer mt-4 relative transition duration-500 ease-in">
+<div class="comment-container @if($comment->is_status_update) is-status-update {{ 'status-'.Str::kebab($comment->status->name) }} @endif bg-white rounded-xl flex cursor-pointer mt-4 relative transition duration-500 ease-in">
     <div class="flex flex-col md:flex-row flex-1 px-4 py-6">
         <div class="flex-none">
             <a href="#" target="_blank">
@@ -13,11 +13,18 @@
                 @admin
                 <div class="text-red mb-2">Spam Reports: {{ $comment->spam_reports }}</div>
                 @endadmin
-                {{ $comment->body }}
+                @if($comment->is_status_update)
+                <h4 class="text-xl font-semibold mb-3">
+                    Status Changed to "{{ $comment->status->name }}"
+                </h4>
+                @endif
+                <div>
+                    {{ $comment->body }}
+                </div>
             </div>
             <div class="flex items-center justify-between mt-6">
                 <div class="flex items-center text-xs text-gray-400 font-semibold space-x-2">
-                    <div class="font-bold text-gray-900">{{ $comment->user->name }}</div>
+                    <div class="font-bold @if($comment->user->isAdmin()) text-blue @else text-gray-900 @endif">{{ $comment->user->name }}</div>
                     <div>&bull;</div>
                     @if($comment->user->id == $idea->user_id)
                         <div><span class="bg-gray-200 text-gray-700 px-2 py-1 rounded rounded-lg border">OP</span></div>

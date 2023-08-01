@@ -5,7 +5,7 @@
     })
     Livewire.hook('message.processed', (message, component) => {
         if(
-            message.updateQueue[0].payload.event=='ideaCommentWasAdded'
+            ['statusWasUpdated', 'ideaCommentWasAdded'].includes(message.updateQueue[0].payload.event)
             &&
             message.component.fingerprint.name=='idea-comments'
         ){

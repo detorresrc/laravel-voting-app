@@ -9,8 +9,9 @@ use Livewire\Component;
 
 class SetStatus extends Component
 {
-    public $idea;
+    public Idea $idea;
     public $status;
+    public $comment;
     public $notifyAllVoters;
 
     public function mount(Idea $idea)
@@ -29,6 +30,13 @@ class SetStatus extends Component
 
         if($this->notifyAllVoters)
             NotifyAllVoters::dispatch($this->idea);
+
+        $this->idea->comments()->create([
+            'body'             => $this->comment ?: 'No comment was added',
+            'user_id'          => auth()->user()->id,
+            'is_status_update' => true,
+            'status_id'        => $this->status
+        ]);
 
         $this->emit('statusWasUpdated');
     }

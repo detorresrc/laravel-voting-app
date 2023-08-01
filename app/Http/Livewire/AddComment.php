@@ -31,6 +31,7 @@ class AddComment extends Component
         $comment = new Comment();
         $comment->body = $this->comment;
         $comment->user_id = auth()->user()->id;
+        $comment->status_id = 1;
 
         $this->idea->comments()->save($comment);
 

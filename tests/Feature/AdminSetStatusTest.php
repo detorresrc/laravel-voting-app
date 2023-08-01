@@ -169,4 +169,55 @@ class AdminSetStatusTest extends TestCase
 
         Queue::assertPushed(NotifyAllVoters::class);
     }
+
+    /** @test */
+    public function can_set_status_with_comment_correctly()
+    {
+        $user = User::factory()->create([
+            'name' => 'Rommel',
+            'email' => 'detorresrc@gmail.com'
+        ]);
+
+        $category1 = Category::factory()->create(['name'=>'Category 1']);
+        $status1 = Status::factory()->create(['name'=>'Open', 'classes'=>'bg-gray-200']);
+        $status2 = Status::factory()->create(['name'=>'Considering', 'classes'=>'bg-gray-200']);
+
+        $idea = Idea::factory()->create([
+            'user_id' => $user->id,
+            'category_id' => $category1->id,
+            'status_id' => $status1->id,
+            'title' => 'My First Idea Title',
+            'description' => 'My First Idea Description'
+        ]);
+
+        Livewire::actingAs($user)
+            ->test(SetStatus::class, [
+                'idea' => $idea
+            ])
+            ->set('status', $status2->id)
+            ->set('comment', '')
+            ->assertSet('status', $status2->id)
+            ->call('setStatus')
+            ->assertEmitted('statusWasUpdated')
+        ;
+
+        $idea->refresh();
+
+        $this->assertEquals($idea->status_id, $status2->id);
+        $this->assertEquals('No comment was added', $idea->comments[0]['body']);
+
+        Livewire::actingAs($user)
+            ->test(SetStatus::class, [
+                'idea' => $idea
+            ])
+            ->set('status', $status2->id)
+            ->set('comment', 'ako lang to!')
+            ->assertSet('status', $status2->id)
+            ->call('setStatus')
+            ->assertEmitted('statusWasUpdated')
+        ;
+
+        $idea->refresh();
+        $this->assertEquals('ako lang to!', $idea->comments[1]['body']);
+    }
 }
