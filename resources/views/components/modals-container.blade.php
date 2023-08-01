@@ -15,5 +15,7 @@
 
         @livewire('comment.edit-comment', ['idea' => $idea])
         @livewire('comment.delete-comment', ['idea' => $idea])
+        @livewire('comment.mark-comment-as-spam')
+        @livewire('comment.mark-comment-as-not-spam')
     @endpush
 @endauth

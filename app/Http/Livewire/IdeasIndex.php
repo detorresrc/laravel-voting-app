@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Idea;
 use App\Models\Status;
 use App\Models\Vote;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -76,13 +77,13 @@ class IdeasIndex extends Component
                 Idea::with('category', 'user', 'status')
                     ->withCount('comments')
                     ->withCount('votes')
-                    ->when($this->status, function($query) use ($statuses){
+                    ->when($this->status, function(Builder $query) use ($statuses){
                         if(isset($statuses[$this->status]))
                             return $query->where('status_id', $statuses[$this->status]);
 
                         return $query;
                     })
-                    ->when($this->category, function($query) use ($categories){
+                    ->when($this->category, function(Builder $query) use ($categories){
                         $categories = $categories->pluck('id', 'name');
 
                         if(isset($categories[$this->category]))
@@ -90,16 +91,21 @@ class IdeasIndex extends Component
 
                         return $query;
                     })
-                    ->when(strcasecmp($this->filter,'Top Voted')===0, function($query){
+                    ->when(strcasecmp($this->filter,'Top Voted')===0, function(Builder $query){
                         return $query->orderByDesc('votes_count');
                     })
-                    ->when(strcasecmp($this->filter,'My Ideas')===0, function($query){
+                    ->when(strcasecmp($this->filter,'My Ideas')===0, function(Builder $query){
                         return $query->where('user_id', auth()->id());
                     })
-                    ->when(strcasecmp($this->filter,'Spam Ideas')===0, function($query){
+                    ->when(strcasecmp($this->filter,'Spam Ideas')===0, function(Builder $query){
                         return $query->where('spam_reports', '>', 0)->orderBy('spam_reports', 'DESC');
                     })
-                    ->when(strlen($this->search)>=3, function($query){
+                    ->when(strcasecmp($this->filter,'Spam Comments')===0, function(Builder $query){
+                        return $query->whereHas('comments', function(Builder $query) {
+                            return $query->where('spam_reports', '>', 0);
+                        });
+                    })
+                    ->when(strlen($this->search)>=3, function(Builder $query){
                         return $query->where('title', 'like', '%'.trim($this->search).'%');
                     })
                     ->addSelect(['voted_by_user' =>

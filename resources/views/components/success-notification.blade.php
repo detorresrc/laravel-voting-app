@@ -10,23 +10,20 @@
         @if($redirect)
             $nextTick(()=>showNotification('{{ $messageToDisplay }}'))
         @else
-            Livewire.on('ideaWasUpdated', (params) => {
-                showNotification(params.message)
-            })
-            Livewire.on('ideaWasMarkedAsSpam', (params) => {
-                showNotification(params.message)
-            })
-            Livewire.on('ideaWasMarkedAsNotSpam', (params) => {
-                showNotification(params.message)
-            })
-            Livewire.on('ideaCommentWasAdded', (params) => {
-                showNotification(params.message)
-            })
-            Livewire.on('ideaCommentWasUpdated', (params) => {
-                showNotification(params.message)
-            })
-            Livewire.on('ideaCommentWasDeleted', (params) => {
-                showNotification(params.message)
+            listeners = [
+                'ideaWasUpdated',
+                'ideaWasMarkedAsSpam',
+                'ideaWasMarkedAsNotSpam',
+                'ideaCommentWasAdded',
+                'ideaCommentWasUpdated',
+                'ideaCommentWasDeleted',
+                'ideaCommentWasMarkAsSpam',
+                'ideaCommentWasMarkAsNotSpam'
+            ]
+            listeners.forEach((listener) => {
+                Livewire.on(listener, (params) => {
+                    showNotification(params.message)
+                })
             })
         @endif
         "

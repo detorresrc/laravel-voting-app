@@ -63,4 +63,9 @@ class CommentPolicy
     {
         //
     }
+
+    public function markAsNotSpam(User $user, Comment $comment) : bool
+    {
+        return $user->isAdmin();
+    }
 }
