@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Comment;
 
 use App\Models\Comment;
 use App\Services\DecodeModelKey;
+use Illuminate\Http\Response;
 use Livewire\Component;
 
 class DeleteComment extends Component
@@ -25,7 +26,12 @@ class DeleteComment extends Component
 
     public function deleteIdeaComment()
     {
+        if(auth()->guest()) abort(Response::HTTP_FORBIDDEN);
+
         $comment = Comment::findOrFail(DecodeModelKey::decode($this->commendId));
+
+        if(auth()->user()->cannot('delete', $comment)) abort(\Illuminate\Http\Response::HTTP_FORBIDDEN);
+
         $comment->delete();
 
         $this->emit('ideaCommentWasDeleted', [
